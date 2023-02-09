@@ -1,0 +1,54 @@
+<div class="main-card">
+<h1>Pagination Grid</h1>
+<table border>
+  <tr>
+    <th>SI.NO</th>
+    <th>NAME</th>
+    <th>GENDER</th>
+    <th>PHYSICS</th>
+    <th>MATHS</th>
+    <th>ENGLISH</th>
+    <th>TOTAL</th>
+  </tr>
+  <ng-template
+    ngFor
+    let-value
+    [ngForOf]="values"
+    let-i="index"
+    [ngForTrackBy]="trackByFn"
+  >
+    <tr *ngIf="pagination.index === getPageIndex(i)">
+      <td>{{ i + 1 }}</td>
+      <td>{{ value.name }}</td>
+      <td>{{ value.gender }}</td>
+      <td>{{ value.physics }}</td>
+      <td>{{ value.maths }}</td>
+      <td>{{ value.english }}</td>
+      <td>{{ value.english + value.maths + value.physics }}</td>
+    </tr>
+  </ng-template>
+</table>
+<div class="page-btn">
+  <button
+    [disabled]="pagination.index === 0"
+    (click)="pagination.index = pagination.index - 1"
+    [class]="pagination.index === 0 ? 'disable-btn' : 'normal-btn'"
+  >
+    Previous
+  </button>
+  <ng-template ngFor let-pageIndex [ngForOf]="getPages()" let-i="index">
+    <button (click)="pagination.index = pageIndex" class="normal-btn">
+      {{ pageIndex + 1 }}
+    </button>
+  </ng-template>
+  <button
+    [disabled]="pagination.index === getPageCount() - 1"
+    (click)="pagination.index = pagination.index + 1"
+    [class]="
+      pagination.index === getPageCount() - 1 ? 'disable-btn' : 'normal-btn'
+    "
+  >
+    Next
+  </button>
+</div>
+</div>
